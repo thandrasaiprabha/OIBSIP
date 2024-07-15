@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List Web App</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        form label {
+            margin-bottom: 5px;
+        }
+
+        form input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        form button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do List Web App</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <form id="add-todo-form">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" placeholder="Enter title">
+        <label for="description">Short description:</label>
+        <input type="text" id="description" name="description" placeholder="Enter short description">
+        <button type="submit">Save</button>
+    </form>
+    <script>
+        const todoList = document.getElementById('tbody');
+        const addTodoForm = document.getElementById('add-todo-form');
+
+        addTodoForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+
+            // Create a new table row (<tr>) for the to-do item
+            const newRow = document.createElement('tr');
+
+            // Create table cells (<td>) for title, description, and delete button
+            const titleCell = document.createElement('td');
+            titleCell.innerText = title;
+            const descriptionCell = document.createElement('td');
+            descriptionCell.innerText = description;
+            const deleteButton = document.createElement('button');
+            deleteButton.innerText = 'Delete';
+            deleteButton.addEventListener('click', () => {
+                newRow.remove(); // Remove the table row when the delete button is clicked
+            });
+            const deleteCell = document.createElement('td');
+            deleteCell.appendChild(deleteButton);
+
+            // Add the cells to the new row
+            newRow.appendChild(titleCell);
+            newRow.appendChild(descriptionCell);
+            newRow.appendChild(deleteCell);
+
+            // Add the new row to the table body
+            todoList.appendChild(newRow);
+
+            // Clear the form fields after adding the item
+            document.getElementById('title').value = '';
+            document.getElementById('description').value = '';
+        });
+    </script>
+</body>
+</html>
